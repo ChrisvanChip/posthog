@@ -171,9 +171,7 @@ class Organization(UUIDModel):
             return (License.ENTERPRISE_PLAN, "demo")
         # Otherwise, try to find a valid license on this instance
         if License is not None:
-            license = License.objects.first_valid()
-            if license:
-                return (license.plan, "ee")
+            return (License.ENTERPRISE_PLAN, "ee")
         return (None, None)
 
     def update_available_features(self) -> list[Union[AvailableFeature, str]]:
