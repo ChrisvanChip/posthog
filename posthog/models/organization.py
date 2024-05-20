@@ -172,7 +172,7 @@ class Organization(UUIDModel):
         # Otherwise, try to find a valid license on this instance
         if License is not None:
             return (License.ENTERPRISE_PLAN, "ee")
-        return (None, None)
+        return (License.ENTERPRISE_PLAN, "ee")
 
     def update_available_features(self) -> list[Union[AvailableFeature, str]]:
         """Updates field `available_features`. Does not `save()`."""
@@ -190,13 +190,7 @@ class Organization(UUIDModel):
 
         # Self hosted legacy license so we just sync the license features
         # Demo gets all features
-        if settings.DEMO or "generate_demo_data" in sys.argv[1:2]:
-            self.available_features = License.PLANS.get(License.ENTERPRISE_PLAN, [])
-        else:
-            # Otherwise, try to find a valid license on this instance
-            license = License.objects.first_valid()
-            if license:
-                self.available_features = License.PLANS.get(license.plan, [])
+        self.available_features = License.PLANS.get(License.ENTERPRISE_PLAN, [])
 
         return self.available_features
 
