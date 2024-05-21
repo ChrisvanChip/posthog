@@ -101,7 +101,7 @@ fi
 
 if [ "$REGISTRY_URL" == "" ]
 then
-export REGISTRY_URL="ChrisvanChip/posthog"
+export REGISTRY_URL="chrisvanchip/posthog"
 fi
 
 # rewrite caddyfile
