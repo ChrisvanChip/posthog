@@ -65,21 +65,13 @@ export const upgradeModalLogic = kea<upgradeModalLogicType>([
                         return true
                     }
                     const {
-                        guardOnCloud = true,
-                        guardOnSelfHosted = true,
+                        guardOnCloud = false,
+                        guardOnSelfHosted = false,
                         currentUsage,
                         isGrandfathered,
                     } = options || {}
                     let featureAvailable: boolean
-                    if (!preflight) {
-                        featureAvailable = false
-                    } else if (!guardOnCloud && preflight.cloud) {
-                        featureAvailable = true
-                    } else if (!guardOnSelfHosted && !preflight.cloud) {
-                        featureAvailable = true
-                    } else {
-                        featureAvailable = hasAvailableFeature(featureKey, currentUsage)
-                    }
+                    featureAvailable = true
 
                     if (!featureAvailable) {
                         actions.showUpgradeModal(featureKey, currentUsage, isGrandfathered)
